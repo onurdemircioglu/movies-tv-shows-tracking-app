@@ -10,7 +10,7 @@ st.header("Movies & TV Series Tracking App")
 
 @st.cache_data  # 👈 Add the caching decorator
 def load_data():
-    all_data_df = pd.read_excel(r"Z:\VirtualMachinesShared\movies_for_github.xlsx", header=0, index_col=0, thousands=",", usecols=("ID","Type","IMDb TT","Original Title","Primary Title","Release Year","Status","Score","Score Date","Genres","Watch Grade"))
+    all_data_df = pd.read_excel("movies_for_github.xlsx", header=0, index_col=0, thousands=",", usecols=("ID","Type","IMDb TT","Original Title","Primary Title","Release Year","Status","Score","Score Date","Genres","Watch Grade"))
     # nrows=1000, 
 
     # Type Conversions
