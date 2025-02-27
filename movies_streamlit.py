@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-
+import sqlite3
 
 pd.options.display.float_format = '{:.0f}'.format
 
@@ -8,7 +8,7 @@ st.header("Movies & TV Series Tracking App")
 
 
 
-#@st.cache_data  # 👈 Add the caching decorator
+@st.cache_data  # 👈 Add the caching decorator
 def load_data():
     all_data_df = pd.read_excel("movies_for_github.xlsx", header=0, index_col=0, thousands=",", usecols=("ID","Type","IMDb TT","Original Title","Primary Title","Release Year","Status","Score","Score Date","Genres","Watch Grade"))
     # nrows=1000, 
@@ -57,7 +57,7 @@ current_month = pd.to_datetime('today').month
 #Start building Streamlit App
 ###############################################################################
 
-add_sidebar = st.sidebar.selectbox("Select a Page", ("Main","Movies", "Tv Shows", "Search"))
+add_sidebar = st.sidebar.selectbox("Select a Page", ("Main","Movies", "Tv Shows", "Search", "Test"))
 
 if add_sidebar == "Main":
     st.subheader("Metrics")
@@ -98,7 +98,6 @@ if add_sidebar == "Tv Shows":
 
 if add_sidebar == "Search":
     st.subheader("You selected Search Page")
-
 
 if add_sidebar == "Test":
 
@@ -153,5 +152,4 @@ if add_sidebar == "Test":
         st.warning("User deleted!")
 
     # Close connection on exit
-    conn.close()
-    
+    conn.close()    
