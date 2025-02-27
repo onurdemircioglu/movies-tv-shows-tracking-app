@@ -2,13 +2,14 @@ import streamlit as st
 import pandas as pd
 import sqlite3
 
+st.set_page_config(layout="wide")
 pd.options.display.float_format = '{:.0f}'.format
 
 st.header("Movies & TV Series Tracking App")
 
 
 
-@st.cache_data  # 👈 Add the caching decorator
+#@st.cache_data  # 👈 Add the caching decorator
 def load_data():
     all_data_df = pd.read_excel("movies_for_github.xlsx", header=0, index_col=0, thousands=",", usecols=("ID","Type","IMDb TT","Original Title","Primary Title","Release Year","Status","Score","Score Date","Genres","Watch Grade"))
     # nrows=1000, 
@@ -75,10 +76,22 @@ if add_sidebar == "Main":
     #This Month Watched Movies
     watched_movies_this_month_count = movies_watched_df2[(movies_watched_df2['Score Date'].dt.year == current_year) & 
                             (movies_watched_df2['Score Date'].dt.month == current_month)].shape[0]
+    
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric(label = "All Time Watched Movies", value = watched_movies_count)
+    
+    with col2:
+        st.metric(label = "This Year Watched Movies", value = watched_movies_this_year_count)
+    
+    with col3:
+        st.metric(label = "This Month Watched Movies", value = watched_movies_this_month_count) 
    
-    st.metric(label = "All Time Watched Movies", value = watched_movies_count)
-    st.metric(label = "This Year Watched Movies", value = watched_movies_this_year_count)
-    st.metric(label = "This Month Watched Movies", value = watched_movies_this_month_count)
+    
+    
+    
 
 if add_sidebar == "Movies":
     st.subheader("Last Watched 20 Movies")
@@ -97,7 +110,26 @@ if add_sidebar == "Tv Shows":
     st.dataframe(tv_shows_in_progress_df)
 
 if add_sidebar == "Search":
-    st.subheader("You selected Search Page")
+    st.subheader("Enter your criteria to search")
+    movie_name_search = st.text_input('Movie Name')
+
+    score_search = st.selectbox("Choose a score (>=)", [x for x in reversed(range(0, 101, 5))])
+    # TODO: SAKLANACAK [x for x in reversed(range(1888, current_year + 1))])
+    
+    if movie_name_search != "":
+        filtered_df = all_data_df[all_data_df["Original Title"].str.contains(movie_name_search, case=False, na=False)]
+    else:
+        filtered_df = all_data_df
+        
+    if score_search != "":
+        filtered_df = filtered_df[filtered_df["Score"] >= score_search]
+    else:
+        filtered_df = filtered_df
+
+    if movie_name_search or score_search:
+        st.write("Your criteria are;  \n", "Name =>", movie_name_search, "  \n Score =>", score_search)
+        st.dataframe(filtered_df)
+
 
 if add_sidebar == "Test":
 
@@ -152,4 +184,4 @@ if add_sidebar == "Test":
         st.warning("User deleted!")
 
     # Close connection on exit
-    conn.close()    
+    conn.close()
