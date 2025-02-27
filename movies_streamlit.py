@@ -98,17 +98,60 @@ if add_sidebar == "Tv Shows":
 
 if add_sidebar == "Search":
     st.subheader("You selected Search Page")
+
+
+if add_sidebar == "Test":
+
+    # Connect to SQLite database
+    conn = sqlite3.connect("my_database.db", check_same_thread=False)
+    cursor = conn.cursor()
+
+    # Create table (if not exists)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            age INTEGER
+        )
+    """)
+    conn.commit()
+
+    # Streamlit UI
+    st.title("SQLite with Streamlit")
+
+    # **Insert Data**
+    name = st.text_input("Enter Name")
+    age = st.number_input("Enter Age", min_value=0, step=1)
+
+    if st.button("Add User"):
+        cursor.execute("INSERT INTO users (name, age) VALUES (?, ?)", (name, age))
+        conn.commit()
+        st.success("User added successfully!")
+
+    # **Display Data**
+    st.subheader("Users List")
+    cursor.execute("SELECT * FROM users")
+    rows = cursor.fetchall()
+    for row in rows:
+        st.write(row)
+
+    # **Update Data**
+    user_id = st.number_input("Enter ID to Update", min_value=1, step=1)
+    new_name = st.text_input("New Name")
+    new_age = st.number_input("New Age", min_value=0, step=1)
+
+    if st.button("Update User"):
+        cursor.execute("UPDATE users SET name=?, age=? WHERE id=?", (new_name, new_age, user_id))
+        conn.commit()
+        st.success("User updated successfully!")
+
+    # **Delete Data**
+    delete_id = st.number_input("Enter ID to Delete", min_value=1, step=1)
+    if st.button("Delete User"):
+        cursor.execute("DELETE FROM users WHERE id=?", (delete_id,))
+        conn.commit()
+        st.warning("User deleted!")
+
+    # Close connection on exit
+    conn.close()
     
-
-
-
-# TODO:
-# Main Page içine konulan metrikler sütun bazında olabilir. Movies bir satırda 3 metrik. TV Shows bir satırda 3 metrik
-# TV Show metrikleri; total watched, this year watched. This month watched. Watched olanlar için hem Watched hem In Progress dahil edilecek.
-
-# Metrics bölümüne ortalama puan, son 20 izlenen filmin ortalama puanı, medyanı gibi metrikler ekleyelim
-# Movies bölümüne en yüksek puan verdiğim 50 filmi koyalım dataframe olarak.
-# Search sayfası yapalım.
-
-# WIP:
-# TV Show sayfasında Active TV Shows diye bir dataframe yapalım => Bunu yaptım ama descending sıralı gelmiyor. Bunun için Episodes sayfasını da almalıyız
