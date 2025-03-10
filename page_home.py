@@ -15,8 +15,8 @@ current_month = st.session_state.current_month
 
 
 # Now you can use current_year in calculations or display
-st.write(f"Current Year: {current_year}")
-st.write(f"Current Month: {current_month}")
+#st.write(f"Current Year: {current_year}")
+#st.write(f"Current Month: {current_month}")
 
 
 # Access stored DataFrames
