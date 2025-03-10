@@ -12,6 +12,8 @@ def load_data():
     
     all_data_df = pd.read_sql_query("SELECT * FROM MAIN_DATA", conn)
     all_episodes_df = pd.read_sql("SELECT * FROM EPISODES", conn)
+    tv_shows_last_watched_df = pd.read_sql("SELECT * FROM TV_SHOWS_LAST_WATCHED", conn)
+    
 
     # Create filtered DataFrames
     all_movies_df = all_data_df[all_data_df["TYPE"] == "Movie"]
@@ -19,12 +21,10 @@ def load_data():
     movies_watched_df = all_data_df[ (all_data_df["STATUS"] == "WATCHED") & (all_data_df["TYPE"] == "Movie") ]
     tv_shows_watched_df = all_data_df[ (all_data_df["STATUS"] == "WATCHED") & (all_data_df["TYPE"] == "TV Series") ]
     tv_shows_active_df = all_data_df[ (all_data_df["STATUS"] == "IN PROGRESS") & (all_data_df["TYPE"] == "TV Series") ]
-
-    
-    
+       
     conn.close()
     
-    return all_data_df, all_movies_df, all_tv_shows_df, movies_watched_df, tv_shows_watched_df, tv_shows_active_df, all_episodes_df
+    return all_data_df, all_movies_df, all_tv_shows_df, movies_watched_df, tv_shows_watched_df, tv_shows_active_df, all_episodes_df, tv_shows_last_watched_df
 
 
 # Defining general variables (Only define the variable if it doesn't exist in session_state)
@@ -44,9 +44,10 @@ if (
     or "tv_shows_active_df" not in st.session_state
     or "tv_shows_watched_df" not in st.session_state
     or "all_episodes_df" not in st.session_state
+    or "tv_shows_last_watched_df" not in st.session_state
 ):
     
-    all_data_df, all_movies_df, all_tv_shows_df, movies_watched_df, tv_shows_watched_df, tv_shows_active_df, all_episodes_df = load_data()
+    all_data_df, all_movies_df, all_tv_shows_df, movies_watched_df, tv_shows_watched_df, tv_shows_active_df, all_episodes_df, tv_shows_last_watched_df = load_data()
     
     st.session_state.all_data_df = all_data_df
     st.session_state.all_movies_df = all_movies_df
@@ -55,6 +56,7 @@ if (
     st.session_state.tv_shows_watched_df = tv_shows_watched_df
     st.session_state.tv_shows_active_df = tv_shows_active_df
     st.session_state.all_episodes_df = all_episodes_df
+    st.session_state.tv_shows_last_watched_df = tv_shows_last_watched_df
     #st.experimental_rerun()  # Forces a re-run (It didn't work)
     
     st.success("✅ Data loaded successfully!")
@@ -67,8 +69,9 @@ if (
 page_home = st.Page("page_home.py", title="Home", icon=":material/house:")
 page_movies = st.Page("page_movies.py", title="Movies", icon="🎦", url_path="movies")
 page_tv_shows = st.Page("page_tv_shows.py", title="TV Shows", icon="📺", url_path="tv-shows")
+page_data_entry = st.Page("page_data_entry.py", title="Data Entry", url_path="data-entry")
 
-pg = st.navigation([page_home, page_movies, page_tv_shows])
+pg = st.navigation([page_home, page_movies, page_tv_shows, page_data_entry])
 
 
 pg.run()

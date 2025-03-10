@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import random
 
 st.title("🎥 Movies & TV Series Tracker")
-st.write("Welcome to the ultimate tracking app for movies and TV shows!")
+#st.write("Welcome to the ultimate tracking app for movies and TV shows!")
+st.write(f"**Follow my movie reviews on Substack**: {"https://popcorncurve.substack.com/"}")
 
 st.subheader("Metrics")
 
