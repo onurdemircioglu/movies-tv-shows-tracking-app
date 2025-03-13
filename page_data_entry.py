@@ -1,6 +1,6 @@
 import time
 import sys
-sys.path.append(r"C:\Users\onur\anaconda3\envs\movies_streamlit2\app")
+#sys.path.append(r"C:\Users\onur\anaconda3\envs\movies_streamlit2\app")
 
 import streamlit as st
 import my_functions
