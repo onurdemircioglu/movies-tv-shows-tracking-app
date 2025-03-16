@@ -1,8 +1,37 @@
 import streamlit as st
+st.set_page_config(page_title="Movies & TV Series Tracker", page_icon="🎥", layout="wide") # ✅ Must be first! or error occurs: set_page_config() can only be called once per app page, and must be called as the first Streamlit command in your script.
+
+import sys
+sys.path.append(r"C:\Users\onur\anaconda3\envs\movies_streamlit\app")
+
 import pandas as pd
 import sqlite3
+import login  # Import the login system
+#login.check_login()
 
-st.set_page_config(page_title="Movies & TV Series Tracker", page_icon="🎥", layout="wide")
+
+# # Check if the user is logged in
+if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
+    st.warning("⚠️ Please log in first.")
+    login.check_login()  # Call the login function only if the user is not logged in
+    st.stop()  # Stop further execution until the user logs in
+else:
+    st.session_state["logged_in"] = True  # Keep logged-in state
+
+
+
+#st.write(f"👋 Welcome, {st.session_state['username']}!")
+st.write(f"👋 Welcome, {st.session_state.get('username', 'Guest')}!")
+
+# Admin Panel Button (Accessible only by Admins)
+if st.session_state.get("role") == "admin":
+    if st.button("Go to Admin Panel"):
+        st.switch_page("admin_page.py")
+
+# Logout Button
+if st.button("Logout"):
+    st.session_state.clear()  # Clear session
+    st.rerun()  # Refresh the page to show login again
 
 
 @st.cache_data  # 👈 Add the caching decorator
@@ -34,7 +63,6 @@ if "current_year" not in st.session_state:
 if "current_month" not in st.session_state:
     st.session_state.current_month = pd.to_datetime('today').month
 
-
 # ✅ Load data only once & store separately
 if (
     "all_data_df" not in st.session_state
@@ -62,17 +90,30 @@ if (
     st.success("✅ Data loaded successfully!")
 
 
-
-
-
 # Navigation
 page_home = st.Page("page_home.py", title="Home", icon=":material/house:")
 page_movies = st.Page("page_movies.py", title="Movies", icon="🎦", url_path="movies")
 page_tv_shows = st.Page("page_tv_shows.py", title="TV Shows", icon="📺", url_path="tv-shows")
 page_data_entry = st.Page("page_data_entry.py", title="Data Entry", url_path="data-entry")
+page_admin = st.Page("admin_page.py", title="Admin Page", url_path="admin-page")
+page_test = st.Page("page_test.py", title="Test Page", url_path="test-page")
 
-pg = st.navigation([page_home, page_movies, page_tv_shows, page_data_entry])
+pg = st.navigation([page_home, page_movies, page_tv_shows, page_data_entry, page_admin, page_test])
 
 
 pg.run()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

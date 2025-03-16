@@ -33,18 +33,16 @@ tab1, tab2, tab3 = st.tabs(["📅 Upcoming", "✅ Watched", "⭐ Favorites"])
 
 with tab1:
     st.write("Movies I plan to watch.")
-    #st.image("https://via.placeholder.com/300x200", caption="Example Movie")
-    st.dataframe(plan_to_watch_df)
+    st.dataframe(plan_to_watch_df, hide_index=True, column_order=("ID", "TYPE", "IMDB_TT", "ORIGINAL_TITLE", "PRIMARY_TITLE", "RELEASE_YEAR", "STATUS", "DURATION", "RATING", "RATING_COUNT", "GENRES", "WATCH_GRADE"))
+    
 
 with tab2:
     st.write("Last Watched 20 Movies")
-    #st.image("https://via.placeholder.com/300x200", caption="Example Watched Movie")
-    st.dataframe(movies_watched_last_30_days_df)
+    st.dataframe(movies_watched_last_30_days_df, hide_index=True, column_order=("ID", "TYPE", "IMDB_TT", "ORIGINAL_TITLE", "PRIMARY_TITLE", "RELEASE_YEAR", "SCORE", "SCORE_DATE", "DURATION", "RATING", "RATING_COUNT", "GENRES"))
 
 with tab3:
     st.write("My favorite movies.")
-    #st.image("https://via.placeholder.com/300x200", caption="Example Favorite Movie")
-    st.dataframe(movies_high_scored_df)
+    st.dataframe(movies_high_scored_df, hide_index=True, column_order=("ID", "TYPE", "IMDB_TT", "ORIGINAL_TITLE", "PRIMARY_TITLE", "RELEASE_YEAR", "SCORE", "SCORE_DATE", "DURATION", "RATING", "RATING_COUNT", "GENRES"))
 
 
 

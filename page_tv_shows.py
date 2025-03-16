@@ -24,4 +24,4 @@ if (
     tv_shows_last_watched_df2 = tv_shows_last_watched_df2.sort_values(["MAX_WATCHED_DATE", "TITLE"], ascending=[False, True]) # .reset_index(drop=True)
     
     # Printing
-    st.dataframe(tv_shows_last_watched_df2.head(20), hide_index=True)
+    st.dataframe(tv_shows_last_watched_df2.head(20), hide_index=True, column_order=("ID", "TYPE", "IMDB_TT", "TITLE", "RELEASE_YEAR", "DURATION", "RATING", "RATING_COUNT", "GENRES", "MAX_WATCHED_DATE", "LATEST_EPISODE"))
