@@ -41,29 +41,50 @@ class MyClass:  # ✅ Make sure this class is at the top level
    
     
     def insert_new_record(self
-                          ,imdb_tt: str, record_type: str
+                          ,imdb_tt: str, record_type: str, record_title_type: str
                           ,original_title: str = None, primary_title: str = None
                           ,record_status: str = None, release_year: int = None
                           ,record_score: int = None, score_date: str = None
-                          ,imdb_rating: float = None, imdb_rating_count: int = None
+                          ,imdb_rating: float = None
+                          ,imdb_rating_count: int = None
+                          # : int = Nones
                           ,imdb_genres: str = None
                           ,watch_grade: int = None
                           ):
-        conn = sqlite3.connect("movies_tv_shows.db")
+        conn = sqlite3.connect(r"C:\Users\onur\anaconda3\envs\movies_streamlit\app\movies_tv_shows.db")
         cursor = conn.cursor()
+
+
+        # Convert imdb_rating safely
+        if imdb_rating in [None, '']:  
+            imdb_rating = 0.0
+        
+        # Convert imdb_rating_count safely
+        if imdb_rating_count in [None, '']:  # Check if it's None or an empty string
+            imdb_rating_count = 0  # Set a default value
+
+        # Convert release_year safely
+        if release_year in [None, '']:  # Check if it's None or an empty string
+            release_year = 0  # Set a default value
+
+
 
         # Build the insert query dynamically based on non-empty values
         columns = ["IMDB_TT"]
         values = [imdb_tt]
+        
         if original_title:
             columns.append("ORIGINAL_TITLE")
             values.append(original_title)
-        if record_type:
-            columns.append("TYPE")
-            values.append(record_type)
         if primary_title:
             columns.append("PRIMARY_TITLE")
             values.append(primary_title)
+        if record_type:
+            columns.append("TYPE")
+            values.append(record_type)
+        if record_title_type:
+            columns.append("TITLE_TYPE")
+            values.append(record_title_type)
         if record_status:
             columns.append("STATUS")
             values.append(record_status)
@@ -76,13 +97,13 @@ class MyClass:  # ✅ Make sure this class is at the top level
         if record_status == "WATCHED" and score_date:
             columns.append("SCORE_DATE")
             values.append(score_date)
-        if imdb_rating > 0:
+        if float(imdb_rating) > 0.0:
             columns.append("RATING")
             values.append(imdb_rating)
-        if imdb_rating > 0:
+        if float(imdb_rating) > 0.0:
             columns.append("RATING_UPDATE_DATE")
             values.append(datetime.today().strftime("%Y-%m-%d"))
-        if imdb_rating_count >0:
+        if imdb_rating_count > 0:
             columns.append("RATING_COUNT")
             values.append(imdb_rating_count)
         if imdb_genres:

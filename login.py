@@ -3,7 +3,9 @@ import streamlit as st
 # Hardcoded user database (Replace with SQLite in future)
 USER_CREDENTIALS = {
     "admin": {"password": "admin123", "role": "admin"},
-    "onur": {"password": "user123", "role": "user"},
+    "onur": {"password": "onur123", "role": "user"},
+    "yenice": {"password": "yenice123", "role": "user"},
+    "guest": {"password": "guest123", "role": "user"},
 }
 
 def check_login():
