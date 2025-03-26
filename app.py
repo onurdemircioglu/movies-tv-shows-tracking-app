@@ -63,6 +63,10 @@ if "current_year" not in st.session_state:
 if "current_month" not in st.session_state:
     st.session_state.current_month = pd.to_datetime('today').month
 
+if "current_day" not in st.session_state:
+    st.session_state.current_day = pd.to_datetime('today').date()
+
+
 # ✅ Load data only once & store separately
 if (
     "all_data_df" not in st.session_state
@@ -98,11 +102,12 @@ page_data_entry = st.Page("page_data_entry.py", title="Data Entry", url_path="da
 page_admin = st.Page("admin_page.py", title="Admin Page", url_path="admin-page")
 page_test = st.Page("page_test.py", title="Test Page", url_path="test-page")
 page_test2 = st.Page("page_test2.py", title="Test Page 2", url_path="page-test2")
+page_test3 = st.Page("page_test3.py", title="Test Page 3", url_path="page-test3")
 page_temp = st.Page("page_temp.py", title="Temp Page", url_path="temp-page")
 page_search = st.Page("page_search.py", title="Search", url_path="search-page")
 
 
-pg = st.navigation([page_home, page_movies, page_tv_shows, page_data_entry, page_admin, page_test, page_test2, page_temp, page_search])
+pg = st.navigation([page_home, page_movies, page_tv_shows, page_data_entry, page_admin, page_test, page_test2, page_test3, page_temp, page_search])
 
 
 pg.run()

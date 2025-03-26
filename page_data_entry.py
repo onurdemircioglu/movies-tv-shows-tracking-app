@@ -90,6 +90,8 @@ else:
         # Get unique values
         unique_title_type_options = sorted(set(sum(title_type_options.values(), [])))
 
+        status_options = ["POTENTIAL", "TO BE WATCHED", "MAYBE", "N2WATCH", "IN PROGRESS", "WATCHED", "DROPPED"]
+
 
         imdb_link = st.text_input("IMDb Link", value="https://www.imdb.com/title/", key="imdb_link")
         record_type = st.radio(
@@ -113,7 +115,8 @@ else:
         primary_title = st.text_input("Primary Title", key="primary_title")
         record_status = st.radio(
           "Select Status",
-          ["POTENTIAL", "TO BE WATCHED", "MAYBE", "N2WATCH", "IN PROGRESS", "WATCHED", "DROPPED"],
+          #["POTENTIAL", "TO BE WATCHED", "MAYBE", "N2WATCH", "IN PROGRESS", "WATCHED", "DROPPED"],
+          status_options,
           horizontal=True,  # Makes options appear inline
           index=0,  # Default: "POTENTIAL"
           key="record_status"
@@ -121,7 +124,7 @@ else:
         release_year = st.number_input("Release Year", key="release_year", value=None, min_value=1888, max_value=st.session_state.current_year)
         record_score = st.text_input("Score", key="record_score") # It is define as text_input because when it is number_input min_valus is automatically 0 or 0.00
         score_date = st.date_input("Score Date", key="score_date") # It is default value is today. While inserting into database it is handled as if record_status == "WATCHED" and score_date:
-        imdb_rating = st.number_input("IMDb Rating", key="imdb_rating", min_value=0.0, max_value=10.0, step=0.1)
+        imdb_rating = st.number_input("IMDb Rating", key="imdb_rating", min_value=0.0, max_value=10.0, step=0.1, format="%.1f")
         imdb_rating_count = st.number_input("IMDb Rating Count", min_value=0, value=0, step=1, format="%d", key="imdb_rating_count")
         imdb_genres = st.multiselect(
                'Genres',

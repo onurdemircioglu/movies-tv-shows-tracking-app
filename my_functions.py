@@ -86,6 +86,7 @@ class MyClass:  # ✅ Make sure this class is at the top level
             columns.append("TITLE_TYPE")
             values.append(record_title_type)
         if record_status:
+            #TODO: buraya >0 kriteri koymak lazım ama nasıl etkileyecek emin olamadığım için şu an dokunmadım ya da min value = 5 kriteri de ekleyebiliriz.
             columns.append("STATUS")
             values.append(record_status)
         if release_year:
@@ -113,7 +114,7 @@ class MyClass:  # ✅ Make sure this class is at the top level
             columns.append("GENRES_UPDATE_DATE")
             values.append(datetime.today().strftime("%Y-%m-%d"))
         if (record_status == "TO BE WATCHED" or record_status == "MAYBE") and watch_grade > 0:
-            columns.append("WATCH_GRADE")
+            columns.append("WATCH_GRADE") # TODO:Watched olarak işaretlediklerimizde bu alanı sıfırlamalıyız bence
             values.append(watch_grade)
         if imdb_tt:
             columns.append("INSERT_DATE")
