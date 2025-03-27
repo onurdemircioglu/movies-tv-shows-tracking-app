@@ -37,7 +37,7 @@ if st.button("Logout"):
 @st.cache_data  # 👈 Add the caching decorator
 def load_data():
     # sqlite3 connection and get/load data
-    conn = sqlite3.connect(r"movies_tv_shows.db")
+    conn = sqlite3.connect(r"C:\Users\onur\anaconda3\envs\movies_streamlit\app\movies_tv_shows.db")
     
     all_data_df = pd.read_sql_query("SELECT * FROM MAIN_DATA", conn)
     all_episodes_df = pd.read_sql("SELECT * FROM EPISODES", conn)
@@ -102,12 +102,12 @@ page_data_entry = st.Page("page_data_entry.py", title="Data Entry", url_path="da
 page_admin = st.Page("admin_page.py", title="Admin Page", url_path="admin-page")
 page_test = st.Page("page_test.py", title="Test Page", url_path="test-page")
 page_test2 = st.Page("page_test2.py", title="Test Page 2", url_path="page-test2")
-page_test3 = st.Page("page_test3.py", title="Test Page 3", url_path="page-test3")
+page_update = st.Page("page_update.py", title="Update Page", url_path="page-update")
 page_temp = st.Page("page_temp.py", title="Temp Page", url_path="temp-page")
 page_search = st.Page("page_search.py", title="Search", url_path="search-page")
 
 
-pg = st.navigation([page_home, page_movies, page_tv_shows, page_data_entry, page_admin, page_test, page_test2, page_test3, page_temp, page_search])
+pg = st.navigation([page_home, page_movies, page_tv_shows, page_data_entry, page_admin, page_test, page_test2, page_update, page_temp, page_search])
 
 
 pg.run()
