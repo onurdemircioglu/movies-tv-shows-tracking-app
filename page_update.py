@@ -6,7 +6,7 @@ import pandas as pd
 import sqlite3
 import my_functions
 
-db_path = r"C:\Users\onur\anaconda3\envs\movies_streamlit\app\movies_tv_shows.db"
+db_path = r"movies_tv_shows.db"
 
 st.title("Update Record Last Try")
 
