@@ -9,7 +9,7 @@ import my_functions
 
 st.title("Update Record")
 
-db_path = (r"C:\Users\onur\anaconda3\envs\movies_streamlit\app\movies_tv_shows.db")
+db_path = (r"movies_tv_shows.db")
 conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
 
