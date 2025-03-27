@@ -37,7 +37,7 @@ if st.button("Logout"):
 @st.cache_data  # 👈 Add the caching decorator
 def load_data():
     # sqlite3 connection and get/load data
-    conn = sqlite3.connect(r"C:\Users\onur\anaconda3\envs\movies_streamlit\app\movies_tv_shows.db")
+    conn = sqlite3.connect(r"movies_tv_shows.db")
     
     all_data_df = pd.read_sql_query("SELECT * FROM MAIN_DATA", conn)
     all_episodes_df = pd.read_sql("SELECT * FROM EPISODES", conn)
