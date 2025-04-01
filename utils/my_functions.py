@@ -7,8 +7,10 @@ import os
 
 # Database Path
 #path_parts = [os.getcwd(), "utils"]
-path_parts = [os.getcwd(),]
-DB_PATH = os.path.join(*path_parts, "movies_tv_shows.db")
+#path_parts = [os.getcwd(),]
+#DB_PATH = os.path.join(*path_parts, "movies_tv_shows.db")
+
+DB_PATH = "movies_tv_shows.db"
 
 class MyClass:  # ✅ Make sure this class is at the top level
 
