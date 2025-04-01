@@ -6,12 +6,6 @@ import streamlit as st
 import os
 
 # Database Path
-#path_parts = [os.getcwd(), "utils"]
-#path_parts = [os.getcwd(),]
-#DB_PATH = os.path.join(*path_parts, "movies_tv_shows.db")
-
-#DB_PATH = r"\movies_tv_shows.db"
-
 # Get the path of the current directory (utils folder)
 current_directory = os.path.dirname(__file__)
 # Go one directory up to the root folder
