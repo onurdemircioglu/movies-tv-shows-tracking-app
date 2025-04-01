@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import my_functions
+from utils import my_functions
 
 
 
