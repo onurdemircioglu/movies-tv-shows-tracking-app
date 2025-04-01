@@ -6,8 +6,8 @@ import streamlit as st
 import os
 
 # Database Path
-#DB_PATH = r"movies_tv_shows.db"
-DB_PATH = os.path.join(os.getcwd(), "movies_tv_shows.db")
+path_parts = [os.getcwd(), "utils"]
+DB_PATH = os.path.join(*path_parts, "movies_tv_shows.db")
 
 class MyClass:  # ✅ Make sure this class is at the top level
 
