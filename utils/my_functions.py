@@ -5,7 +5,7 @@ from datetime import datetime
 import streamlit as st
 
 # Database Path
-DB_PATH = "movies_tv_shows.db"
+DB_PATH = r"movies_tv_shows.db"
 
 class MyClass:  # ✅ Make sure this class is at the top level
 
